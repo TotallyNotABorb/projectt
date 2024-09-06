@@ -75,7 +75,7 @@ def sign_in_frame():
     def signin_check():
         log_get = login_entry.get()
         pass_get = password_entry.get()
-        with open("text/accounts.txt", "r") as accounts:
+        with open("accounts.txt", "r") as accounts:
             read_acc = accounts.readlines()
         for i in range(len(read_acc)):
             if log_get in read_acc[i]:
@@ -196,61 +196,41 @@ def main_menu_frame():
         end_add_button=Button(add_frame,bg="#0f0fef",width=20,fg="#ffffff",text="Add",font=("Arial",18,"bold"),activebackground="#0f0fef",command=add_save)
         end_add_button.place(x=10,y=260)
 
-        delete_label = Label(add_frame, text="Delete entry by login:", bg="#3f3f3f", fg="#ffffff",
-                             font=("Arial", 18, "bold"))
-        delete_label.place(x=850, y=300)
-
-        delete_entry = Entry(add_frame, bg="#ffffff", width=20, font=("Arial", 18), borderwidth=0)
-        delete_entry.place(x=850, y=340)
-
-        quit_button=Button(add_frame, bg="#3f3f3f", width=20, fg="#ffffff", text="Go to main menu",
-                               font=("Arial", 18, "bold"), activebackground="#3f3f3f", command=main_menu_frame.place(x=0,y=0))
-        quit_button.place(x=850, y=10)
-
-        def delete_save():
-            user_to_delete = delete_entry.get()
-            with open("data.txt", "r") as file:
-                lines = file.readlines()
-            with open("data.txt", "w") as file:
-                for line in lines:
-                    if not line.startswith(user_to_delete + ','):
-                        file.write(line)
 
 
 
 
-        delete_button = Button(add_frame, bg="#f00f00", width=20, fg="#ffffff", text="Delete",
-                               font=("Arial", 18, "bold"), activebackground="#f00f00", command=delete_save)
-        delete_button.place(x=825, y=380)
+
 
         add_frame.place(x=0,y=0)
 
-    def format_line(line):
-        words = line.split()
-        formatted_words = []
-        labels = ["Name", "Number", "Service"]
-
-        for i, word in enumerate(words):
-            if i < len(labels):
-                formatted_words.append(f"{labels[i]}: {word}")
-            else:
-                formatted_words.append(word)
-
-        return '   '.join(formatted_words)
-
     def show_frame():
-        show_frame = Frame(window, width=1160, height=690, bg="#3f3f3f")
+        show_frame=Frame(window,width=1160,height=690,bg="#3f3f3f")
 
-        with open("data.txt", "r") as file:
-            data = file.readlines()
 
-        formatted_data = '\n'.join(format_line(line) for line in data)
+        with open("data.txt","r+") as dataa:
+            data=dataa.readlines()
+        job_label=Label(show_frame,text=data,bg="#3f3f3f",fg="#ffffff",font=("Arial",18,))
+        job_label.place(x=100,y=50)
 
-        job_label = Label(show_frame, text=formatted_data, bg="#3f3f3f", fg="#ffffff", font=("Arial", 18),
-                          justify='left')
-        job_label.place(x=100, y=50)
 
-        show_frame.place(x=0, y=0)
+
+
+        show_frame.place(x=0,y=0)
+
+
+
+        end_add_button=Button(add_frame,bg="#0f0fef",width=20,fg="#ffffff",text="Add",font=("Arial",18,"bold"),activebackground="#0f0fef",command=add_save)
+        end_add_button.place(x=10,y=260)
+
+
+
+
+
+
+
+
+
 
     add_button=Button(main_menu_frame,text="Add",command=add_frame)
     add_button.config(bg="#3f3f3f",width=14,fg="#ffffff",font=("Arial",15,"bold"),borderwidth=0,activebackground="#3f3f3f",activeforeground="#000000")
@@ -301,6 +281,12 @@ def main_menu_frame():
 
     submit_active_button=Button(main_menu_frame,text="Submit",bg="#3f3f3f",width=14,fg="#ffffff",font=("Arial",15,"bold"),borderwidth=0,activebackground="#3f3f3f",activeforeground="#000000",command=submit_frame)
     submit_active_button.place(x=1000,y=100)
+
+
+
+
+
+
 
 
     main_menu_frame.place(x=0, y=0)
